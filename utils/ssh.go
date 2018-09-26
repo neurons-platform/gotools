@@ -17,6 +17,14 @@ type Out struct {
 	Stderr string
 }
 
+func (o Out) GetStdOut() string {
+	return o.Stdout
+}
+
+func (o Out) GetStdErr() string {
+	return o.Stderr
+}
+
 func Scp(user, password, hostname string, port string, src, dst string) map[string]Out {
 	var (
 		auth         []ssh.AuthMethod
