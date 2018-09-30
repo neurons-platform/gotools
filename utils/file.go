@@ -2,6 +2,7 @@ package utils
 
 import (
 	"os"
+	"io/ioutil"
 )
 
 func FileExist(filename string) bool {
@@ -15,4 +16,10 @@ func DeleteFile(filePath string) bool {
 		return false
 	}
 	return true
+}
+
+func ReadAllFile(filePath string) string {
+	b, e := ioutil.ReadFile(filePath)
+	Throw(e)
+	return string(b)
 }
