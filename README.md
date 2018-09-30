@@ -1,5 +1,12 @@
 # go usefull tools function collection
 
-- go get github.com/jingminglang/gotools/utils 
-- go get github.com/jingminglang/gotools/embedScriptParser 
-- go get github.com/jingminglang/gotools/chrome 
+
+## get all
+- go get -u github.com/jingminglang/gotools/...
+
+
+## use you need
+- go get -u github.com/jingminglang/gotools/utils 
+- go get -u github.com/jingminglang/gotools/embedScriptParser 
+- go get -u github.com/jingminglang/gotools/chrome 
+- go get -u github.com/jingminglang/gotools/macthineInfo
