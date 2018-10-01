@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"runtime"
 )
 
 func GetLocalIp() string {
@@ -27,3 +28,16 @@ func GetLocalIp() string {
 	}
 	return ip
 }
+
+func GetOsType() string {
+	var osType = ""
+	if runtime.GOOS == "linux" {
+		osType = "linux"
+	}
+
+	if runtime.GOOS == "windows" {
+		osType = "windows"
+	}
+	return osType
+}
+
