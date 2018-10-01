@@ -1,4 +1,4 @@
-module gotools
+module github.com/jingminglang/gotools
 
 require (
 	github.com/chromedp/chromedp v0.1.2
