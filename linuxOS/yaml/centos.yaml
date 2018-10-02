@@ -1,0 +1,71 @@
+LinuxType: Centos
+#Version: 6.6
+
+# setting by yourself begin
+NTPNet: &NTPNet
+  Args: ntp.jd.local
+
+NtpdatePath: &NtpdatePath
+  Path: /usr/sbin/ntpdate
+
+JstackPath: &JstackPath
+  Path: /export/servers/jdk1.6.0_25/bin/jstack
+
+JstatPath: &JstatPath
+  Path: /export/servers/jdk1.6.0_25/bin/jstat
+
+NginxPath: &NginxPath
+  Path: /export/servers/nginx/sbin/nginx
+
+NginxLogPath: &NginxLogPath
+  LogPath: /export/servers/nginx/logs/
+
+# setting by yourself end
+
+LinuxCMDs:
+  - Name: ntpdate
+    <<: *NtpdatePath
+    InstallCMD: yum install -y /usr/sbin/ntpdate
+    UseCase:
+      - Name: sync datetime
+        Desc: 同步系统时间
+        <<: *NTPNet
+
+  - Name: yum
+    Path: /usr/bin/yum
+    UseCase:
+      - Name: install
+        Desc: 安装软件
+        Args: -y install
+
+  - Name: ps
+    Path: ps
+
+  - Name: date
+    Path: /bin/date
+    UseCase:
+      - Name: show date zone
+        Desc: 显示系统时区
+        Args: -R
+
+  - Name: jstack
+    <<: *JstackPath
+
+  - Name: jstat
+    <<: *JstatPath
+
+  - Name: nginx
+    <<: *NginxPath
+    <<: *NginxLogPath
+    UseCase:
+      - Name: nginx reload
+        Desc: nginx reload
+        Args: -s reload
+      - Name: nginx stop
+        Desc: nginx stop
+        Args: -s stop
+      - Name: nginx test
+        Desc: nginx test
+        Args: -t
+
+
