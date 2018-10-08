@@ -37,6 +37,10 @@ func (c LinuxCMD) FindUseCase(useCase string) func(string) string {
 	}
 
 	return func(str string) string {
-		return c.Path + " " + useCase + " " + str
+		if len(c.ExeCmd) >0 {
+			return c.ExeCmd + " " +  useCase + " " + str
+		} else {
+			return c.Path + " " + useCase + " " + str
+		}
 	}
 }
