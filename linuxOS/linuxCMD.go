@@ -27,11 +27,13 @@ type LinuxCMD struct {
 
 func (c LinuxCMD) FindUseCase(useCase string) func(string) string {
 	for _, v := range c.UseCase {
-		return func(str string) string {
-			if len(c.ExeCmd) >0 {
-				return c.ExeCmd + " " +  c.Path + " " + v.Args + " " + str
-			} else {
-				return c.Path + " " + v.Args + " " + str
+		if v == useCase {
+			return func(str string) string {
+				if len(c.ExeCmd) >0 {
+					return c.ExeCmd + " " +  c.Path + " " + v.Args + " " + str
+				} else {
+					return c.Path + " " + v.Args + " " + str
+				}
 			}
 		}
 	}
