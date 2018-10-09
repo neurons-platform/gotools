@@ -16,7 +16,7 @@ const (
 type LinuxOS struct {
 	LinuxType LinuxType
 	Version string `yaml:"Version"`
-	User string `yaml:"User"`
+	DefaultUser string `yaml:"DefaultUser"`
 	LinuxCMDs []LinuxCMD `yaml:"LinuxCMDs"`
 }
 
