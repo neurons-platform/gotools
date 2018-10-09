@@ -63,7 +63,9 @@ func (c LinuxOS) FindScript(filePath string,args string) string {
 		return ""
 	}
 
-	tmpl, err = template.New("").Parse(`f {{.}}`)
+	tmpl, err = template.New("").Parse(`
+f {{.}}
+`)
 	if !U.Throw(err) {
 		return ""
 	}
