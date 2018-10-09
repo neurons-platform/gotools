@@ -11,10 +11,12 @@ type LinuxCMD struct {
 	Name       string   `yaml:"Name"`
 	// 命令所在位置 fullpath
 	Path       string   `yaml:"Path"`
+	// 执行命令的用户
+	User       string   `yaml:"User"`
 	// 执行命令的程序
-	ExeCmd string `yaml:"ExeCmd"`
+	ExeCmd     string   `yaml:"ExeCmd"`
 	// 日志位置
-	LogPath    string    `yaml:"LogPath"`
+	LogPath    string   `yaml:"LogPath"`
 	// 命令版本
 	Version    string   `yaml:"Version"`
 	// 使用方法
