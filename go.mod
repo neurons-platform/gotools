@@ -1,6 +1,7 @@
 module github.com/jingminglang/gotools
 
 require (
+	github.com/araddon/dateparse v0.0.0-20181010035859-f056aa227cd7
 	github.com/bitly/go-simplejson v0.5.0
 	github.com/chromedp/chromedp v0.1.2
 	github.com/satori/go.uuid v1.2.0

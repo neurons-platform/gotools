@@ -1,6 +1,9 @@
 package utils
 
-import "time"
+import (
+	"time"
+	"github.com/araddon/dateparse"
+)
 
 func GetMilliTimeStamp(t time.Time) int64 {
 	return t.UnixNano() / int64(time.Millisecond)
@@ -18,4 +21,11 @@ func GetDatetime() string {
 
 func Sleep(n int) {
 	time.Sleep(time.Duration(n) * time.Millisecond)
+}
+
+func ParserStringToTime(str string) time.Time {
+	t, err := dateparse.ParseLocal(str)
+	// t, err := dateparse.ParseFormat(str)
+	Throw(err)
+	return t
 }
