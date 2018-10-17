@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"log"
+	SJ "github.com/bitly/go-simplejson"
 )
 
 func StructToJsonString(st interface{}) string {
@@ -34,4 +35,9 @@ func JsonStringToMap(str string) map[string]interface{} {
 		return nil
 	}
 	return mp
+}
+
+func JsonStrToJsonSJ(str string) ( *SJ.Json,error) {
+	js, err := SJ.NewJson([]byte(str))
+	return js,err
 }
