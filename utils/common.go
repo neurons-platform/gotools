@@ -89,3 +89,12 @@ func UniqueStrList(strSlice []string) []string {
 	}
 	return list
 }
+
+func MaxInFloat64Aarry(max float64,arr []float64) float64 {
+	for _, e := range arr {
+		if max < e {
+			max = e
+		}
+	}
+	return max
+}
