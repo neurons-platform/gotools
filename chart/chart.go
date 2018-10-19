@@ -12,13 +12,13 @@ import (
 func DrawTimeSeries(fileName string,title string,max float64, series []chart.Series) {
 	ttf, err := ioutil.ReadFile("ttf/msyh.ttf")
 	if err != nil {
-		panic(err)
+		// panic(err)
 		U.Throw(err)
 	}
 
 	ft, err := truetype.Parse(ttf)
 	if err != nil {
-		panic(err)
+		// panic(err)
 		U.Throw(err)
 	}
 
@@ -60,18 +60,18 @@ func DrawTimeSeries(fileName string,title string,max float64, series []chart.Ser
 	buffer := bytes.NewBuffer([]byte{})
 	err = graph.Render(chart.PNG, buffer)
 	if err != nil {
-		panic(err)
+		// panic(err)
 		U.Throw(err)
 	}
 
 	fo, err := os.Create(fileName)
 	if err != nil {
-		panic(err)
+		// panic(err)
 		U.Throw(err)
 	}
 
 	if _, err := fo.Write(buffer.Bytes()); err != nil {
-		panic(err)
-		// U.Throw(err)
+		// panic(err)
+		U.Throw(err)
 	}
 }

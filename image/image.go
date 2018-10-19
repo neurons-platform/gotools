@@ -19,14 +19,14 @@ type Pixel struct {
 func OpenAndDecode(filepath string) (image.Image, string, error) {
 	imgFile, err := os.Open(filepath)
 	if err != nil {
-		panic(err)
+		// panic(err)
 		U.Throw(err)
 	}
 
 	defer imgFile.Close()
 	img, format, err := image.Decode(imgFile)
 	if err != nil {
-		panic(err)
+		// panic(err)
 		U.Throw(err)
 	}
 
