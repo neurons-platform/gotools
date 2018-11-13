@@ -14,6 +14,30 @@ type Redis_client redis.Client
 
 var Rc Redis_client
 
+func (client *Redis_client) ZAdd(key string, score string, member string) bool {
+	z := redis.Z{Str2Float64(score), member}
+	err := RedisClient.ZAdd(key, z).Err()
+	return Throw(err)
+}
+
+func (client *Redis_client) LRange(key string, start, stop int64) []string {
+	val, err := RedisClient.LRange(key, start, stop).Result()
+	Throw(err)
+	return val
+}
+
+func (client *Redis_client) ZRangeByScore(key string, min string, max string) []string {
+	opt := redis.ZRangeBy{min, max, 0, 0}
+	val, err := RedisClient.ZRangeByScore(key, opt).Result()
+	Throw(err)
+	return val
+}
+
+func (client *Redis_client) Expire(key string, t time.Duration) bool {
+	err := RedisClient.Expire(key, t).Err()
+	return Throw(err)
+}
+
 func (client *Redis_client) SAdd(key string, member string) bool {
 	err := RedisClient.SAdd(key, member).Err()
 	return U.Throw(err)
@@ -97,6 +121,6 @@ func NewRedisClient(addr string, password string) *redis.Client {
 }
 
 // 初始化redis客户端
-func InitRedisClient(addr string,password string) {
+func InitRedisClient(addr string, password string) {
 	RedisClient = NewRedisClient(addr, password)
 }

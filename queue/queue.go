@@ -6,7 +6,6 @@ import (
 
 var QUEUE = NewQueue(1)
 
-
 type Node struct {
 	Value Message
 }
@@ -58,3 +57,6 @@ func (q *Queue) Pop() *Node {
 	return node
 }
 
+func (q *Queue) Size() int {
+	return q.size
+}
