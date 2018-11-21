@@ -17,6 +17,17 @@ func Delete(k string) {
 	C.Delete(k)
 }
 
+// 检查key是否在缓存中，如果不存在就是设置key并设置过期时间
+func CheckKey(k string, d time.Duration) bool {
+	v := GetString(k)
+	if len(v) > 0 {
+		return true
+	} else {
+		SetString(k, "0", d)
+	}
+	return false
+}
+
 func SetString(k string, x string , d time.Duration) {
 	C.Set(k, x, d)
 }
