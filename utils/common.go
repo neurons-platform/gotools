@@ -7,7 +7,6 @@ import (
 	"golang.org/x/text/transform"
 	"io/ioutil"
 	"reflect"
-	"strings"
 )
 
 func SumIntArray(a []int) int {
