@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"time"
 	"github.com/araddon/dateparse"
+	"time"
 )
 
 func GetMilliTimeStamp(t time.Time) int64 {
@@ -28,4 +28,10 @@ func ParserStringToTime(str string) time.Time {
 	// t, err := dateparse.ParseFormat(str)
 	Throw(err)
 	return t
+}
+
+func GetLastNMinute(n int64) int64 {
+	t1 := MilliTimeStamp()
+	t2 := t1 % 60000
+	return t1 - t2 - 60000*n
 }

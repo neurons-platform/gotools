@@ -1,8 +1,10 @@
 package utils
 
 import (
-	"os"
 	"io/ioutil"
+	"os"
+	"syscall"
+	"time"
 )
 
 func FileExist(filename string) bool {
@@ -22,4 +24,78 @@ func ReadAllFile(filePath string) string {
 	b, e := ioutil.ReadFile(filePath)
 	Throw(e)
 	return string(b)
+}
+
+func statTimes(name string) (atime, mtime, ctime time.Time, err error) {
+	fi, err := os.Stat(name)
+	if err != nil {
+		return
+	}
+	mtime = fi.ModTime()
+	stat := fi.Sys().(*syscall.Stat_t)
+	atime = time.Unix(int64(stat.Atim.Sec), int64(stat.Atim.Nsec))
+	ctime = time.Unix(int64(stat.Ctim.Sec), int64(stat.Ctim.Nsec))
+	return
+}
+
+func GetFileModifyTime(path string) int64 {
+	_, mtime, _, err := statTimes(path)
+	if !Throw(err) {
+		return 0
+	}
+	return GetMilliTimeStamp(mtime)
+}
+
+func GetFileCreateTime(path string) int64 {
+	_, _, ctime, err := statTimes(path)
+	if !Throw(err) {
+		return 0
+	}
+	return GetMilliTimeStamp(ctime)
+}
+
+func CreateFile(path string) bool {
+
+	var _, err = os.Stat(path)
+	if os.IsNotExist(err) {
+		var file, err = os.Create(path)
+		if !Throw(err) {
+			return false
+		}
+		defer file.Close()
+	}
+	return true
+}
+
+func IsFileModifyTimeOlderThanNSecond(path string, n int) bool {
+	if !U.FileExist(path) {
+		return true
+	}
+	modifyTime := GetFileModifyTime(path)
+	nowTimw := MilliTimeStamp()
+	diffTime := (nowTimw - modifyTime) / 1000
+	return diffTime > int64(n)
+}
+
+func WriteStringToFile(path string, content string) bool {
+	if !FileExist(path) {
+		CreateFile(path)
+	}
+
+	var file, err = os.OpenFile(path, os.O_RDWR, 0644)
+	if !Throw(err) {
+		return false
+	}
+	defer file.Close()
+
+	_, err = file.WriteString(content)
+	if !Throw(err) {
+		return false
+	}
+
+	err = file.Sync()
+	if !Throw(err) {
+		return false
+	}
+	return true
 }
