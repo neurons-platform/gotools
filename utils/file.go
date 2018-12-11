@@ -68,7 +68,7 @@ func CreateFile(path string) bool {
 }
 
 func IsFileModifyTimeOlderThanNSecond(path string, n int) bool {
-	if !U.FileExist(path) {
+	if !FileExist(path) {
 		return true
 	}
 	modifyTime := GetFileModifyTime(path)
