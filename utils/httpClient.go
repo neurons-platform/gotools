@@ -83,3 +83,44 @@ func HttpPostJson(url string, data string) string {
 
 	//fmt.Println(string(body))
 }
+
+func HttpGetWithHeader(url string, header map[string]string) string {
+	c := http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	for k, v := range header {
+		req.Header.Set(k, v)
+	}
+	if Throw(err) {
+		resp, err := c.Do(req)
+		if Throw(err) {
+			defer resp.Body.Close()
+			body, err := ioutil.ReadAll(resp.Body)
+			if Throw(err) {
+				return string(body)
+			}
+		}
+	}
+	return ""
+}
+
+func HttpPostJsonWithHeader(url string, data string, header map[string]string) string {
+	c := http.Client{}
+	req, err := http.NewRequest("POST", url, strings.NewReader(data))
+
+	req.Header.Set("Content-Type", "application/json")
+	for k, v := range header {
+		req.Header.Set(k, v)
+	}
+
+	if Throw(err) {
+		resp, err := c.Do(req)
+		if Throw(err) {
+			defer resp.Body.Close()
+			body, err := ioutil.ReadAll(resp.Body)
+			if Throw(err) {
+				return string(body)
+			}
+		}
+	}
+	return ""
+}

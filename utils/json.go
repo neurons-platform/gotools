@@ -3,8 +3,8 @@ package utils
 import (
 	"bytes"
 	"encoding/json"
-	"log"
 	SJ "github.com/bitly/go-simplejson"
+	"log"
 )
 
 func StructToJsonString(st interface{}) string {
@@ -37,7 +37,42 @@ func JsonStringToMap(str string) map[string]interface{} {
 	return mp
 }
 
-func JsonStrToJsonSJ(str string) ( *SJ.Json,error) {
+func JsonStrToJsonSJ(str string) (*SJ.Json, error) {
 	js, err := SJ.NewJson([]byte(str))
-	return js,err
+	return js, err
+}
+
+func InterfaceToJsonStr(i interface{}) string {
+	jsonStr, err := json.Marshal(i)
+	if err != nil {
+		return ""
+	}
+	str := string(jsonStr[:])
+	return str
+}
+
+type JS struct {
+	Jstr string
+}
+
+func (this JS) String() string {
+	return this.Jstr
+}
+
+func (this JS) Get(key string) JS {
+	js := JS{
+		Jstr: getJsonStrFromJsonStr(this.Jstr, key),
+	}
+	return js
+}
+
+func getJsonStrFromJsonStr(js string, key string) string {
+	var raw map[string]interface{}
+	json.Unmarshal([]byte(js), &raw)
+	r := ""
+	if val, ok := raw[key]; ok {
+		out, _ := json.Marshal(val)
+		r = string(out)
+	}
+	return r
 }

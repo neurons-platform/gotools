@@ -35,3 +35,7 @@ func GetLastNMinute(n int64) int64 {
 	t2 := t1 % 60000
 	return t1 - t2 - 60000*n
 }
+
+func GetLastNMinuteTimestamp(offset time.Duration) int64 {
+	return GetMilliTimeStamp(GetLastNMinuteTime(offset))
+}

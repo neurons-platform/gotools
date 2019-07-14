@@ -7,6 +7,11 @@ import (
 	"encoding/hex"
 )
 
+func StringToBase64(data string) string {
+	strBase64 := base64.StdEncoding.EncodeToString([]byte(data))
+	return strBase64
+}
+
 func Md5(str string) string {
 	hash := md5.Sum([]byte(str))
 	return hex.EncodeToString(hash[:])
