@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"github.com/golang/freetype/truetype"
 	"github.com/wcharczuk/go-chart"
-	U "github.com/jingminglang/gotools/utils"
+	U "github.com/neurons-platform/gotools/utils"
 )
 
 func DrawTimeSeries(fileName string,title string,max float64, series []chart.Series) {

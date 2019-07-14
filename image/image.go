@@ -4,7 +4,7 @@ package image
 import (
 	"image"
 	"image/color"
-	U "github.com/jingminglang/gotools/utils"
+	U "github.com/neurons-platform/gotools/utils"
 	"os"
 )
 

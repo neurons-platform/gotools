@@ -2,7 +2,7 @@ package cmd
 
 import (
 	// U "neurons_master/utils"
-	U "github.com/jingminglang/gotools/utils"
+	U "github.com/neurons-platform/gotools/utils"
 )
 
 func DoCmd(cmd CMD) (CMD, bool) {

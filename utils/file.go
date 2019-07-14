@@ -1,6 +1,9 @@
 package utils
 
 import (
+	"bufio"
+	"github.com/hpcloud/tail"
+	"io"
 	"io/ioutil"
 	"os"
 	"syscall"
@@ -24,6 +27,40 @@ func ReadAllFile(filePath string) string {
 	b, e := ioutil.ReadFile(filePath)
 	Throw(e)
 	return string(b)
+}
+
+func WatchFile(fileName string, fun func(string)) {
+	for {
+		var seek *tail.SeekInfo
+		seek = &tail.SeekInfo{}
+		seek.Offset = 0
+		seek.Whence = 2
+		t, err := tail.TailFile(fileName, tail.Config{Follow: true, Location: seek})
+		if Throw(err) {
+			for line := range t.Lines {
+				if line.Err == nil {
+					fun(line.Text)
+				}
+			}
+		}
+		time.Sleep(1 * time.Second)
+	}
+}
+
+func ReadFileToStringList(fileName string) []string {
+	var stringList []string
+	fi, _ := os.Open(fileName)
+	defer fi.Close()
+	br := bufio.NewReader(fi)
+	for {
+		a, _, c := br.ReadLine()
+		if c == io.EOF {
+			break
+		}
+		stringList = append(stringList, string(a))
+	}
+	return stringList
+
 }
 
 func statTimes(name string) (atime, mtime, ctime time.Time, err error) {

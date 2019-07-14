@@ -2,7 +2,7 @@ package task
 
 import (
 	"testing"
-	U "github.com/jingminglang/gotools/utils"
+	U "github.com/neurons-platform/gotools/utils"
 )
 
 type TestFunc struct {

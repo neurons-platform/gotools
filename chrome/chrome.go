@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/chromedp/chromedp"
 	"github.com/chromedp/chromedp/runner"
-	U "github.com/jingminglang/gotools/utils"
+	U "github.com/neurons-platform/gotools/utils"
 	"io/ioutil"
 	"log"
 	"time"

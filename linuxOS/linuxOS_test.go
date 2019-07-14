@@ -3,7 +3,7 @@ package linuxOS
 import (
 	"testing"
 
-	U "github.com/jingminglang/gotools/utils"
+	U "github.com/neurons-platform/gotools/utils"
 )
 
 func TestYamlStrToLinuxOS(t *testing.T) {

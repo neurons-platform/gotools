@@ -2,7 +2,7 @@ package linuxOS
 
 import (
 	"bytes"
-	U "github.com/jingminglang/gotools/utils"
+	U "github.com/neurons-platform/gotools/utils"
 	"text/template"
 )
 

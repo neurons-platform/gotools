@@ -2,7 +2,7 @@ package task
 
 import (
 	"gopkg.in/robfig/cron.v2"
-	U "github.com/jingminglang/gotools/utils"
+	U "github.com/neurons-platform/gotools/utils"
 )
 var C *cron.Cron =  cron.New()
 var TaskList = make(map[string]cron.EntryID)
