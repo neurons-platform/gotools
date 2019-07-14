@@ -3,16 +3,34 @@ package utils
 import (
 	"bufio"
 	"fmt"
-	"time"
+	"io"
+	"log"
 )
 
 var W *bufio.Writer
 
-func TimeCost(start time.Time) {
-	dis := time.Now().Sub(start).Seconds() * 1000
-	LogPrint("消耗时间:")
-	LogPrint(dis)
-	LogPrintln("ms")
+var (
+	Info    *log.Logger
+	Warning *log.Logger
+	Error   *log.Logger
+)
+
+func InitLog(
+	infoHandle io.Writer,
+	warningHandle io.Writer,
+	errorHandle io.Writer) {
+
+	Info = log.New(infoHandle,
+		"INFO: ",
+		log.Ldate|log.Ltime|log.Lshortfile)
+
+	Warning = log.New(warningHandle,
+		"WARNING: ",
+		log.Ldate|log.Ltime|log.Lshortfile)
+
+	Error = log.New(errorHandle,
+		"ERROR: ",
+		log.Ldate|log.Ltime|log.Lshortfile)
 }
 
 func LogPrint(str interface{}) {
