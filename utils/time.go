@@ -30,6 +30,11 @@ func ParserStringToTime(str string) time.Time {
 	return t
 }
 
+func GetLastNMinuteTime(offset time.Duration) time.Time {
+	now := time.Now()
+	return now.Add(offset).Add(time.Duration(-now.Second()) * time.Second)
+}
+
 func GetLastNMinute(n int64) int64 {
 	t1 := MilliTimeStamp()
 	t2 := t1 % 60000
