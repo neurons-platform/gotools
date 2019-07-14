@@ -2,9 +2,14 @@ package queue
 
 import (
 	"fmt"
+	"sync"
 )
 
-var QUEUE = NewQueue(1)
+var ROBOT_QUEUE = NewQueue(10)
+var AGENT_QUEUE = NewQueue(10)
+
+var mutex sync.Mutex
+
 
 type Node struct {
 	Value Message
@@ -24,6 +29,7 @@ func NewQueue(size int) *Queue {
 
 // Queue is a basic FIFO queue based on a circular list that resizes as needed.
 type Queue struct {
+	lock sync.Mutex
 	nodes []*Node
 	size  int
 	head  int
@@ -33,6 +39,9 @@ type Queue struct {
 
 // Push adds a node to the queue.
 func (q *Queue) Push(n *Node) {
+	q.lock.Lock()
+	defer q.lock.Unlock()
+
 	if q.head == q.tail && q.count > 0 {
 		nodes := make([]*Node, len(q.nodes)+q.size)
 		copy(nodes, q.nodes[q.head:])
@@ -48,7 +57,10 @@ func (q *Queue) Push(n *Node) {
 
 // Pop removes and returns a node from the queue in first to last order.
 func (q *Queue) Pop() *Node {
-	if q.count == 0 {
+	q.lock.Lock()
+	defer q.lock.Unlock()
+
+	if q.count <= 0 {
 		return nil
 	}
 	node := q.nodes[q.head]
@@ -57,6 +69,10 @@ func (q *Queue) Pop() *Node {
 	return node
 }
 
-func (q *Queue) Size() int {
-	return q.size
+
+func (q *Queue) Count() int  {
+	q.lock.Lock()
+	defer q.lock.Unlock()
+
+	return q.count
 }
