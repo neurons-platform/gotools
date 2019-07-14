@@ -44,3 +44,7 @@ func GetLastNMinute(n int64) int64 {
 func GetLastNMinuteTimestamp(offset time.Duration) int64 {
 	return GetMilliTimeStamp(GetLastNMinuteTime(offset))
 }
+
+func GetMinuteTimeKey(offset time.Duration) string {
+	return time.Now().Add(offset).Format("200601021504")
+}

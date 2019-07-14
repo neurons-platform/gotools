@@ -56,3 +56,17 @@ func Int64toStr(i int64) string {
 func BoolToStr(b bool) string {
 	return strconv.FormatBool(b)
 }
+
+func StrToBool(s string) (bool, error) {
+	switch s {
+	case "1", "t", "T", "true", "TRUE", "True", "YES", "yes", "Yes", "y", "ON", "on", "On":
+		return true, nil
+	case "0", "f", "F", "false", "FALSE", "False", "NO", "no", "No", "n", "OFF", "off", "Off":
+		return false, nil
+	}
+	return false, fmt.Errorf("parsing \"%s\": invalid syntax", s)
+}
+
+func StartWith(str string, pre string) bool {
+	return strings.HasPrefix(str, pre)
+}
