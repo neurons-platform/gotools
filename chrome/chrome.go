@@ -67,7 +67,7 @@ func NewHeadless(ctx context.Context, starturl string) (*chromedp.CDP, error) {
 	// runner.URL设置启动时打开的URL
 	// Windows用户需要设置runner.Flag("disable-gpu", true)，具体信息参见文档的FAQ
 	run, err := runner.New(runner.Flag("headless", true),
-		runner.WindowSize(1500, 1500),
+		runner.WindowSize(3000, 1500),
 		runner.URL(starturl))
 
 	if err != nil {
