@@ -2,6 +2,8 @@ package file
 
 import (
 	"bufio"
+	"error"
+	"fmt"
 	"github.com/hpcloud/tail"
 	"io"
 	"io/ioutil"
@@ -9,6 +11,15 @@ import (
 	"syscall"
 	"time"
 )
+
+func Throw(err error) bool {
+	if err != nil {
+		fmt.Println(err)
+		return false
+	} else {
+		return true
+	}
+}
 
 func FileExist(filename string) bool {
 	_, err := os.Stat(filename)
