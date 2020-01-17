@@ -3,17 +3,18 @@ package linuxOS
 import (
 	"testing"
 
+	F "github.com/neurons-platform/gotools/file"
 	U "github.com/neurons-platform/gotools/utils"
 )
 
 func TestYamlStrToLinuxOS(t *testing.T) {
-	f := U.ReadAllFile("./yaml/centos.yaml")
+	f := F.ReadAllFile("./yaml/centos.yaml")
 	got := YamlStrToLinuxOS(f)
 	U.LogPrintln(got)
 }
 
 func TestLinuxOS_FindCMD(t *testing.T) {
-	f := U.ReadAllFile("./yaml/centos.yaml")
+	f := F.ReadAllFile("./yaml/centos.yaml")
 	linuxOS := YamlStrToLinuxOS(f)
 	// cmd,_ := got.FindCMD("date")
 	cmd := linuxOS.FindCMD("ntpdate").FindUseCase("sync datetime")("")
@@ -29,12 +30,12 @@ func TestLinuxOS_FindCMD(t *testing.T) {
 }
 
 func TestLinuxOS_FindScript(t *testing.T) {
-	f := U.ReadAllFile("./yaml/centos.yaml")
+	f := F.ReadAllFile("./yaml/centos.yaml")
 	linuxOS := YamlStrToLinuxOS(f)
 	// sh := linuxOS.FindScript("./tpl/jstack_top_thread.tpl",`"server1" 10`)
 	// U.LogPrintln(sh)
 	// sh := linuxOS.FindScript("./tpl/jstat.tpl",`"server1"`)
 	// U.LogPrintln(sh)
-	sh := linuxOS.FindScript("./tpl/nginx_top_ip.tpl",`"server1"`)
+	sh := linuxOS.FindScript("./tpl/nginx_top_ip.tpl", `"server1"`)
 	U.LogPrintln(sh)
 }

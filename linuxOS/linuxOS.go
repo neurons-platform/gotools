@@ -2,6 +2,7 @@ package linuxOS
 
 import (
 	"bytes"
+	F "github.com/neurons-platform/gotools/file"
 	U "github.com/neurons-platform/gotools/utils"
 	"text/template"
 )
@@ -14,10 +15,10 @@ const (
 )
 
 type LinuxOS struct {
-	LinuxType LinuxType
-	Version string `yaml:"Version"`
-	DefaultUser string `yaml:"DefaultUser"`
-	LinuxCMDs []LinuxCMD `yaml:"LinuxCMDs"`
+	LinuxType   LinuxType
+	Version     string     `yaml:"Version"`
+	DefaultUser string     `yaml:"DefaultUser"`
+	LinuxCMDs   []LinuxCMD `yaml:"LinuxCMDs"`
 }
 
 // func (c LinuxOS) FindCMD(cmdName string) (LinuxCMD,bool) {
@@ -30,7 +31,7 @@ type LinuxOS struct {
 // }
 
 func (c LinuxOS) FindCMD(cmdName string) LinuxCMD {
-	for _,v := range c.LinuxCMDs {
+	for _, v := range c.LinuxCMDs {
 		if cmdName == v.Name {
 			return v
 		}
@@ -50,11 +51,9 @@ func (c LinuxOS) GetNginxLogPath() string {
 	return c.FindCMD("nginx").LogPath
 }
 
-
-
-func (c LinuxOS) FindScript(filePath string,args string) string {
+func (c LinuxOS) FindScript(filePath string, args string) string {
 	var buf bytes.Buffer
-	tpl := U.ReadAllFile(filePath)
+	tpl := F.ReadAllFile(filePath)
 	tmpl, err := template.New("").Parse(tpl)
 	if !U.Throw(err) {
 		return ""
@@ -81,6 +80,6 @@ f {{.}}
 
 func YamlStrToLinuxOS(str string) LinuxOS {
 	linuxOS := LinuxOS{}
-	U.YamlStrToStruct(str,&linuxOS)
+	U.YamlStrToStruct(str, &linuxOS)
 	return linuxOS
 }
