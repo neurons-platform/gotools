@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/hpcloud/tail"
+	U "github.com/neurons-platform/gotools/utils"
 	"io"
 	"io/ioutil"
 	"os"
@@ -90,7 +91,7 @@ func GetFileModifyTime(path string) int64 {
 	if !Throw(err) {
 		return 0
 	}
-	return GetMilliTimeStamp(mtime)
+	return U.GetMilliTimeStamp(mtime)
 }
 
 func GetFileCreateTime(path string) int64 {
@@ -98,7 +99,7 @@ func GetFileCreateTime(path string) int64 {
 	if !Throw(err) {
 		return 0
 	}
-	return GetMilliTimeStamp(ctime)
+	return U.GetMilliTimeStamp(ctime)
 }
 
 func CreateFile(path string) bool {
@@ -119,7 +120,7 @@ func IsFileModifyTimeOlderThanNSecond(path string, n int) bool {
 		return true
 	}
 	modifyTime := GetFileModifyTime(path)
-	nowTimw := MilliTimeStamp()
+	nowTimw := U.MilliTimeStamp()
 	diffTime := (nowTimw - modifyTime) / 1000
 	return diffTime > int64(n)
 }
