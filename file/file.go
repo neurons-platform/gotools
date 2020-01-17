@@ -2,7 +2,6 @@ package file
 
 import (
 	"bufio"
-	"error"
 	"fmt"
 	"github.com/hpcloud/tail"
 	"io"
